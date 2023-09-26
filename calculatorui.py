@@ -1,28 +1,28 @@
 from tkinter import *
 import tkinter.font as font
 
-
+# Initialize an empty expression to store user input
 expression = ""
 
-
+# Function to clear the input field
 def clear():
     global expression
     expression = ""
     equation.set("")
 
-
+# Function to handle button presses (1-9, 0, +, -, x, /, .)
 def press(num):
     global expression
     expression = expression + str(num)
     equation.set(expression)
 
-
+# Function to calculate percentages
 def percent():
     global expression
     expression = str(eval(expression)/100)
     equation.set(expression)
     
-    
+ # Function to change the sign of the number (+/-)   
 def sign_change():
     global expression
     if expression[0]=='-':
@@ -31,7 +31,7 @@ def sign_change():
         expression = '-'+expression
     equation.set(expression)      
 
-
+# Function to calculate the result when '=' is pressed
 def equalpress():
     try:
         global expression
@@ -42,24 +42,20 @@ def equalpress():
     except:
         equation.set(" error ")
         expression = ""
-        
+
+# Create the main window
 window = Tk()
-
-
 window.title("CALCULATOR")
-
-
-
 window.geometry("230x310")
 
+# Create a StringVar to track the equation
 equation = StringVar()
 
+# Create an Entry widget to display the expression
 expression_field = Entry(window, width=25, bd=0, textvariable=equation)
-
 expression_field.grid(columnspan=4,ipady=7)
 
-
-
+# Create buttons for digits, operations, and functions
 button1 = Button(window, width=3, height=3, bd=0, text="1", bg="yellow", command=lambda: press("1"))
 button2 = Button(window, width=3, height=3, bd=0,text="2", command=lambda: press("2"))
 button3 = Button(window, width=3, height=3, bd=0,text="3", command=lambda: press("3"))
@@ -81,8 +77,7 @@ buttondecimal = Button(window, width=3, height=3, bd=0, text=".", command=lambda
 buttonnegative = Button(window, width=3, height=3, bd=0, text="+/-", command=lambda: sign_change())
 
 
-
-
+# Grid layout for buttons
 button1.grid(row=8, column=0, sticky="EW")
 button2.grid(row=8, column=1)
 button3.grid(row=8, column=2)
@@ -104,7 +99,5 @@ buttondecimal.grid(row=9, column=2)
 buttonnegative.grid(row=5, column=1)
 
 
-
-
-
+# Start the GUI event loop
 window.mainloop()
